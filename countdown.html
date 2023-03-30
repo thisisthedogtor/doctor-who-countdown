@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Countdown to Doctor Who 60th Anniversary</title>
+    <style>
+      @font-face {
+        font-family: dotmatrix;
+        src: url(./assets/font/ASTRONAU.TTF);
+      }
+      @font-face {
+        font-family: timelord;
+        src: url(./assets/font/cctimelord-solid.ttf);
+      }
+      @font-face {
+        font-family: platformone;
+        src: url(./assets/font/PlatformOneBold.ttf);
+      }
+      body {
+        background-color: #000000;
+        color: #ffffff;
+        font-family: timelord;
+        text-align: center;
+        margin-top: 50px;
+      }
+      h1 {
+        color: yellow;
+        font-size: 38px;
+        animation: growShrink 2s ease-in-out infinite;
+      }
+
+      @keyframes growShrink {
+        0% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(0.9);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+
+
+      #countdown {
+        font-size: 36px;
+        margin-bottom: 20px;
+        background-color: lightgrey;
+        border: grey 5px solid;
+        border-radius: 10px;
+        width: 50%;
+      }
+
+      #skip-track {
+        background-color: #4CAF50;
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        border-radius: 10px;
+        box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+      }
+      
+      #skip-track:hover {
+        background-color: #3e8e41;
+        box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.3);
+        transform: translateY(-2px);
+      }
+
+      input[type=range] {
+        -webkit-appearance: none;
+        appearance: none;
+        margin: 10px 0;
+        width: 75%;
+        height: 10px;
+        background-color: #ccc;
+        border-radius: 5px;
+      }
+
+      input[type=range]:focus {
+        outline: none;
+      }
+
+      input[type=range]::-webkit-slider-thumb,
+      input[type=range]::-moz-range-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 20px;
+        height: 20px;
+        background-color: #4CAF50;
+        border-radius: 50%;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div style="height: 80px;">
+      <h1 id="page-title">COUNTDOWN TO DOCTOR WHO 60TH ANNIVERSARY</h1>
+    </div>
+    <div style="display:flex; justify-content: center; align-items: center; margin-top: 0px;">
+      <p id="countdown" style="font-family: dotmatrix; font-size: 72px; color: black; margin-top: 0px;"></p>
+    </div>
+
+    <audio id="bg-music" autoplay>
+      <source src="./assets/audio/dalekmod-2016.mp3" type="audio/mpeg" data-title="Dalek Mod 2016 Theme">
+      <source src="./assets/audio/dalekmod-2.mp3" type="audio/mpeg" data-title="Dalek Mod 2nd Anniversary Theme">
+      <source src="./assets/audio/dalekmod-2012.mp3" type="audio/mpeg" data-title="Dalek Mod 2012 Theme">
+      <source src="./assets/audio/dalekmod-2013.mp3" type="audio/mpeg" data-title="Dalek Mod 2013 Theme">
+      <source src="./assets/audio/dalekmod-2015.mp3" type="audio/mpeg" data-title="Dalek Mod 2015 Theme">
+      <source src="./assets/audio/dalekmod-2020.mp3" type="audio/mpeg" data-title="Dalek Mod 2020 Theme">
+      <source src="./assets/audio/dalekmod-2021.mp3" type="audio/mpeg" data-title="Dalek Mod 2021 Theme">
+      <source src="./assets/audio/dalekmod-8.mp3" type="audio/mpeg" data-title="Dalek Mod 8th Anniversary Theme">
+      <source src="./assets/audio/dalekmod-cyber.mp3" type="audio/mpeg" data-title="Dalek Mod Cyber Update Theme">
+      Your browser is incompatible with the background music.
+    </audio>
+
+    <p style="font-family: platformone; font-size: 20px;">Current Track: <span id="current-track"></span></p>
+    <button id="skip-track" style="font-family: platformone; font-size: 20px;">Skip Track</button>
+    <p></p>
+    <div style="display:flex; justify-content: center; align-items:center; margin-left: 20%; margin-right: 20%;">
+      <label id="volume-label" for="volume-control" style="font-family: platformone; font-size: 20px; margin-right: 20px;">Volume (100%):</label>
+      <input id="volume-control" type="range" min="0" max="1" step="0.01" value="1" oninput="setVolume()" title="Volume: 100% | Adjust Volume">
+    </div>
+
+    <script>
+      function setVolume() {
+        var volume = document.getElementById("bg-music").volume;
+        var volumeLabel = document.getElementById("volume-label");
+        volumeControl = document.getElementById("volume-control").value;
+        document.getElementById("bg-music").volume = volumeControl;
+        var volumePercent = Math.round(volumeControl * 100);
+        volumeLabel.textContent = "Volume (" + volumePercent + "%):";
+      }
+    </script>
+
+    <script>
+      var audioTracks = document.getElementById("bg-music").getElementsByTagName("source");
+      var currentTrack = 0;
+      var currentTrackTitle = document.getElementById("current-track");
+      currentTrackTitle.textContent = audioTracks[currentTrack].getAttribute("data-title");
+      
+      document.getElementById("bg-music").addEventListener("ended", function() {
+        currentTrack = Math.floor(Math.random() * audioTracks.length);
+        document.getElementById("bg-music").src = audioTracks[currentTrack].src;
+        currentTrackTitle.textContent = audioTracks[currentTrack].getAttribute("data-title");
+        document.getElementById("bg-music").play();
+      });
+      
+      document.getElementById("skip-track").addEventListener("click", function() {
+        currentTrack = Math.floor(Math.random() * audioTracks.length);
+        document.getElementById("bg-music").src = audioTracks[currentTrack].src;
+        currentTrackTitle.textContent = audioTracks[currentTrack].getAttribute("data-title");
+        document.getElementById("bg-music").play();
+      });
+    </script>
+    
+    <script>
+      // Unix timestamp to countdown to (example: November 23st, 2023 at 05:16:00 PM UTC+0)
+      var targetTimestamp = 1700759760;
+
+      // Update the countdown every second
+      var countdownInterval = setInterval(function() {
+        // Get the current Unix timestamp
+        var currentTimestamp = Math.floor(Date.now() / 1000);
+
+        // Calculate the remaining time in seconds
+        var timestampDifference = targetTimestamp - currentTimestamp;
+
+        // Calculate the remaining time in days, hours, minutes, and seconds
+        var remainingDays = Math.floor(timestampDifference / (24 * 60 * 60)).toString().padStart(3, "0");
+        var remainingHours = Math.floor((timestampDifference % (24 * 60 * 60)) / (60 * 60)).toString().padStart(2, "0");
+        var remainingMinutes = Math.floor((timestampDifference % (60 * 60)) / 60).toString().padStart(2, "0");
+        var remainingSeconds = (timestampDifference % 60).toString().padStart(2, "0");
+
+        // Update the HTML with the remaining time
+        var countdownElement = document.getElementById("countdown");
+        countdownElement.innerHTML = remainingDays + "d:" + remainingHours + "h:" + remainingMinutes + "m:" + remainingSeconds + "s";
+
+        // If the countdown is finished, stop updating the HTML
+        if (timestampDifference <= 0) {
+          clearInterval(countdownInterval);
+          countdownElement.style.color = "red";
+          let messages = ["000d:00h:00m:00s", "COUNTDOWN ABORTED!", "DOCTOR WHO IS 60!"];
+          let currentMessageIndex = 0;
+          setInterval(function() {
+          displayMessage(messages[currentMessageIndex]);
+          currentMessageIndex = (currentMessageIndex + 1) % messages.length;
+        }, 1000);
+        }
+      }, 1000);
+
+      function displayMessage(message) {
+        document.getElementById("countdown").innerHTML = message;
+      }
+    </script>
+  </body>
+</html>
