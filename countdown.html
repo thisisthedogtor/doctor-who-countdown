@@ -160,7 +160,7 @@
     </script>
     
     <script>
-      // Unix timestamp to countdown to (example: November 23st, 2023 at 05:16:00 PM UTC+0)
+      // Unix timestamp to countdown to (November 23st, 2023 at 05:16:00 PM UTC+0)
       var targetTimestamp = 1700759760;
 
       // Update the countdown every second
@@ -179,13 +179,13 @@
 
         // Update the HTML with the remaining time
         var countdownElement = document.getElementById("countdown");
-        countdownElement.innerHTML = remainingDays + "d:" + remainingHours + "h:" + remainingMinutes + "m:" + remainingSeconds + "s";
+        countdownElement.innerHTML = remainingDays + ":" + remainingHours + ":" + remainingMinutes + ":" + remainingSeconds;
 
         // If the countdown is finished, stop updating the HTML
         if (timestampDifference <= 0) {
           clearInterval(countdownInterval);
           countdownElement.style.color = "red";
-          let messages = ["000d:00h:00m:00s", "COUNTDOWN ABORTED!", "DOCTOR WHO IS 60!"];
+          let messages = ["000:00:00:00", "COUNTDOWN ABORTED!", "DOCTOR WHO IS 60!"];
           let currentMessageIndex = 0;
           setInterval(function() {
           displayMessage(messages[currentMessageIndex]);
