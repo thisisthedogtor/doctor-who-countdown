@@ -49,53 +49,6 @@
         border-radius: 10px;
         width: 50%;
       }
-
-      #skip-track {
-        background-color: #4CAF50;
-        border: none;
-        color: white;
-        padding: 15px 32px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 16px;
-        margin: 4px 2px;
-        cursor: pointer;
-        border-radius: 10px;
-        box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
-        transition: all 0.3s ease;
-      }
-      
-      #skip-track:hover {
-        background-color: #3e8e41;
-        box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.3);
-        transform: translateY(-2px);
-      }
-
-      input[type=range] {
-        -webkit-appearance: none;
-        appearance: none;
-        margin: 10px 0;
-        width: 75%;
-        height: 10px;
-        background-color: #ccc;
-        border-radius: 5px;
-      }
-
-      input[type=range]:focus {
-        outline: none;
-      }
-
-      input[type=range]::-webkit-slider-thumb,
-      input[type=range]::-moz-range-thumb {
-        -webkit-appearance: none;
-        appearance: none;
-        width: 20px;
-        height: 20px;
-        background-color: #4CAF50;
-        border-radius: 50%;
-        cursor: pointer;
-      }
     </style>
   </head>
   <body>
@@ -108,56 +61,8 @@
 
     <audio id="bg-music" autoplay>
       <source src="./assets/audio/dalekmod-2016.mp3" type="audio/mpeg" data-title="Dalek Mod 2016 Theme">
-      <source src="./assets/audio/dalekmod-2.mp3" type="audio/mpeg" data-title="Dalek Mod 2nd Anniversary Theme">
-      <source src="./assets/audio/dalekmod-2012.mp3" type="audio/mpeg" data-title="Dalek Mod 2012 Theme">
-      <source src="./assets/audio/dalekmod-2013.mp3" type="audio/mpeg" data-title="Dalek Mod 2013 Theme">
-      <source src="./assets/audio/dalekmod-2015.mp3" type="audio/mpeg" data-title="Dalek Mod 2015 Theme">
-      <source src="./assets/audio/dalekmod-2020.mp3" type="audio/mpeg" data-title="Dalek Mod 2020 Theme">
-      <source src="./assets/audio/dalekmod-2021.mp3" type="audio/mpeg" data-title="Dalek Mod 2021 Theme">
-      <source src="./assets/audio/dalekmod-8.mp3" type="audio/mpeg" data-title="Dalek Mod 8th Anniversary Theme">
-      <source src="./assets/audio/dalekmod-cyber.mp3" type="audio/mpeg" data-title="Dalek Mod Cyber Update Theme">
       Your browser is incompatible with the background music.
     </audio>
-
-    <p style="font-family: platformone; font-size: 20px;">Current Track: <span id="current-track"></span></p>
-    <button id="skip-track" style="font-family: platformone; font-size: 20px;">Skip Track</button>
-    <p></p>
-    <div style="display:flex; justify-content: center; align-items:center; margin-left: 20%; margin-right: 20%;">
-      <label id="volume-label" for="volume-control" style="font-family: platformone; font-size: 20px; margin-right: 20px;">Volume (100%):</label>
-      <input id="volume-control" type="range" min="0" max="1" step="0.01" value="1" oninput="setVolume()" title="Volume: 100% | Adjust Volume">
-    </div>
-
-    <script>
-      function setVolume() {
-        var volume = document.getElementById("bg-music").volume;
-        var volumeLabel = document.getElementById("volume-label");
-        volumeControl = document.getElementById("volume-control").value;
-        document.getElementById("bg-music").volume = volumeControl;
-        var volumePercent = Math.round(volumeControl * 100);
-        volumeLabel.textContent = "Volume (" + volumePercent + "%):";
-      }
-    </script>
-
-    <script>
-      var audioTracks = document.getElementById("bg-music").getElementsByTagName("source");
-      var currentTrack = 0;
-      var currentTrackTitle = document.getElementById("current-track");
-      currentTrackTitle.textContent = audioTracks[currentTrack].getAttribute("data-title");
-      
-      document.getElementById("bg-music").addEventListener("ended", function() {
-        currentTrack = Math.floor(Math.random() * audioTracks.length);
-        document.getElementById("bg-music").src = audioTracks[currentTrack].src;
-        currentTrackTitle.textContent = audioTracks[currentTrack].getAttribute("data-title");
-        document.getElementById("bg-music").play();
-      });
-      
-      document.getElementById("skip-track").addEventListener("click", function() {
-        currentTrack = Math.floor(Math.random() * audioTracks.length);
-        document.getElementById("bg-music").src = audioTracks[currentTrack].src;
-        currentTrackTitle.textContent = audioTracks[currentTrack].getAttribute("data-title");
-        document.getElementById("bg-music").play();
-      });
-    </script>
     
     <script>
       // Unix timestamp to countdown to (November 23st, 2023 at 05:16:00 PM UTC+0)
