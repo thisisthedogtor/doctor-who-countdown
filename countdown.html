@@ -60,9 +60,15 @@
     </div>
 
     <audio id="bg-music" autoplay>
-      <source src="./assets/audio/dalekmod-2016.mp3" type="audio/mpeg" data-title="Dalek Mod 2016 Theme">
+      <source src="./assets/audio/bg-music.mp3" type="audio/mpeg">
       Your browser is incompatible with the background music.
     </audio>
+
+    <script>
+      document.getElementById("bg-music").addEventListener("ended", function() {
+        document.getElementById("bg-music").play();
+      });
+    </script>
     
     <script>
       // Unix timestamp to countdown to (November 23st, 2023 at 05:16:00 PM UTC+0)
