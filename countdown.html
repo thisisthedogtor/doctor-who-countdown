@@ -15,33 +15,28 @@
         font-family: platformone;
         src: url(./assets/font/PlatformOneBold.ttf);
       }
+      @font-face {
+        font-family: doctorwho;
+        src: url(./assets/font/Doctor-Who.ttf);
+      }
+
       body {
         background-color: #000000;
         color: #ffffff;
-        font-family: timelord;
+        font-family: timelord, serif;
         text-align: center;
-        margin-top: 50px;
       }
       h1 {
         color: yellow;
         font-size: 38px;
-        animation: growShrink 2s ease-in-out infinite;
       }
-
-      @keyframes growShrink {
-        0% {
-          transform: scale(1);
-        }
-        50% {
-          transform: scale(0.9);
-        }
-        100% {
-          transform: scale(1);
-        }
+      h2 {
+        color: #ffd600;
+        font-size: 26px;
       }
 
 
-      #countdown {
+      .countdown {
         font-size: 36px;
         margin-bottom: 20px;
         background-color: rgb(62,68,70);
@@ -52,12 +47,31 @@
     </style>
   </head>
   <body>
-    <div style="height: 80px;">
-      <h1 id="page-title">COUNTDOWN TO DOCTOR WHO 60TH ANNIVERSARY</h1>
+    <div style="height: 40px;">
+      <h1 id="page-title">Countdown to Doctor Who 60th Anniversary</h1>
     </div>
+
+    <h2>Countdown to 60th anniversary</h2>
     <div style="display:flex; justify-content: center; align-items: center; margin-top: 0px;">
-      <p id="countdown" style="font-family: dotmatrix; font-size: 72px; color: #5bb7ff; margin-top: 0px; align-text: center;">---:--:--:--</p>
+      <p class="countdown countdownRunning" id="countdown60" style="font-family: dotmatrix, serif; font-size: 72px; color: #5bb7ff; margin-top: 0px; align-text: center;">---:--:--:--</p>
     </div>
+
+    <h2>Countdown to "The Star Beast"</h2>
+    <div style="display:flex; justify-content: center; align-items: center; margin-top: 0px;">
+      <p class="countdown countdownRunning" id="countdownSB" style="font-family: dotmatrix, serif; font-size: 72px; color: #5bb7ff; margin-top: 0px; align-text: center;">---:--:--:--</p>
+    </div>
+
+    <h2>Countdown to "Wild Blue Yonder"</h2>
+    <div style="display:flex; justify-content: center; align-items: center; margin-top: 0px;">
+      <p class="countdown countdownRunning" id="countdownWBY" style="font-family: dotmatrix, serif; font-size: 72px; color: #5bb7ff; margin-top: 0px; align-text: center;">---:--:--:--</p>
+    </div>
+
+    <h2>Countdown to "The Giggle"</h2>
+    <div style="display:flex; justify-content: center; align-items: center; margin-top: 0px;">
+      <p class="countdown countdownRunning" id="countdownTG" style="font-family: dotmatrix, serif; font-size: 72px; color: #5bb7ff; margin-top: 0px; align-text: center;">---:--:--:--</p>
+    </div>
+
+    <p>Music by SWD Team</p>
 
     <audio id="bg-music" autoplay>
       <source src="./assets/audio/bg-music.mp3" type="audio/mpeg">
@@ -71,42 +85,67 @@
     </script>
     
     <script>
-      // Unix timestamp to countdown to (November 23st, 2023 at 05:16:00 PM UTC+0)
-      var targetTimestamp = 1700759780;
+      // Unix timestamps to countdown to (November 23st, 2023 at 05:16:00 PM UTC+0) et al
+      var targetTimestamp60 = 1700759780;
+      var targetTimestampSB = 1700937000;
+      var targetTimestampWBY = 1701541800;
+      var targetTimestampTG = 1702146600;
 
-      // Update the countdown every second
-      var countdownInterval = setInterval(function() {
-        // Get the current Unix timestamp
-        var currentTimestamp = Math.floor(Date.now() / 1000);
+      var countdownElement60 = document.getElementById("countdown60");
+      var countdownElementSB = document.getElementById("countdownSB");
+      var countdownElementWBY = document.getElementById("countdownWBY");
+      var countdownElementTG = document.getElementById("countdownTG");
 
-        // Calculate the remaining time in seconds
-        var timestampDifference = targetTimestamp - currentTimestamp;
+      timestamp(targetTimestamp60, countdownElement60);
+      timestamp(targetTimestampSB, countdownElementSB);
+      timestamp(targetTimestampWBY, countdownElementWBY);
+      timestamp(targetTimestampTG, countdownElementTG);
 
-        // Calculate the remaining time in days, hours, minutes, and seconds
-        var remainingDays = Math.floor(timestampDifference / (24 * 60 * 60)).toString().padStart(3, "0");
-        var remainingHours = Math.floor((timestampDifference % (24 * 60 * 60)) / (60 * 60)).toString().padStart(2, "0");
-        var remainingMinutes = Math.floor((timestampDifference % (60 * 60)) / 60).toString().padStart(2, "0");
-        var remainingSeconds = (timestampDifference % 60).toString().padStart(2, "0");
+      function timestamp(targetTimestamp, countdownElement) {
+        // Update the countdown every second
+        var countdownInterval = setInterval(function() {
+          // Get the current Unix timestamp
+          var currentTimestamp = Math.floor(Date.now() / 1000);
 
-        // Update the HTML with the remaining time
-        var countdownElement = document.getElementById("countdown");
-        countdownElement.innerHTML = remainingDays + ":" + remainingHours + ":" + remainingMinutes + ":" + remainingSeconds;
+          // Calculate the remaining time in seconds
+          var timestampDifference = targetTimestamp - currentTimestamp;
 
-        // If the countdown is finished, stop updating the HTML
-        if (timestampDifference <= 0) {
-          clearInterval(countdownInterval);
-          countdownElement.style.color = "red";
-          let messages = ["000:00:00:00", "COUNTDOWN ABORTED!", "DOCTOR WHO IS 60!"];
-          let currentMessageIndex = 0;
-          setInterval(function() {
-          displayMessage(messages[currentMessageIndex]);
+          // Calculate the remaining time in days, hours, minutes, and seconds
+          var remainingDays = Math.floor(timestampDifference / (24 * 60 * 60)).toString().padStart(3, "0");
+          var remainingHours = Math.floor((timestampDifference % (24 * 60 * 60)) / (60 * 60)).toString().padStart(2, "0");
+          var remainingMinutes = Math.floor((timestampDifference % (60 * 60)) / 60).toString().padStart(2, "0");
+          var remainingSeconds = (timestampDifference % 60).toString().padStart(2, "0");
+
+          // Update the HTML with the remaining time
+          if (countdownElement.classList.contains('countdownRunning')) countdownElement.innerHTML = remainingDays + ":" + remainingHours + ":" + remainingMinutes + ":" + remainingSeconds;
+
+          // If the countdown is finished, stop updating the HTML
+          if (timestampDifference <= 0) {
+            countdownElement.classList.remove('countdownRunning');
+            countdownReached(countdownInterval, countdownElement);
+          }
+        }, 1000);
+      }
+
+      function debugCountdownReached() {
+        timestamp(Math.floor(Date.now() / 1000), countdownElement60);
+        timestamp(Math.floor(Date.now() / 1000), countdownElementSB);
+        timestamp(Math.floor(Date.now() / 1000), countdownElementWBY);
+        timestamp(Math.floor(Date.now() / 1000), countdownElementTG);
+      }
+
+      function countdownReached(countdownInterval, countdownElement) {
+        countdownElement.style.color = "#ff8080";
+        let messages = ["000:00:00:00", "COUNTDOWN ABORTED!"];
+        let currentMessageIndex = 0;
+        setInterval(function() {
+          displayMessage(messages[currentMessageIndex], countdownElement);
           currentMessageIndex = (currentMessageIndex + 1) % messages.length;
         }, 1000);
-        }
-      }, 1000);
+      }
 
-      function displayMessage(message) {
-        document.getElementById("countdown").innerHTML = message;
+      function displayMessage(message, countdownElement) {
+        countdownElement.innerHTML = message;
       }
     </script>
   </body>
