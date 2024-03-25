@@ -51,26 +51,11 @@
       <h1 id="page-title">DOCTOR WHO COUNTDOWNS</h1>
     </div>
 
-    <h2>Countdown to 60th anniversary</h2>
+    <h2>Countdown to the start of Season 40</h2>
     <div style="display:flex; justify-content: center; align-items: center; margin-top: 0px;">
-      <p class="countdown countdownRunning" id="countdown60" style="font-family: dotmatrix, serif; font-size: 72px; color: #5bb7ff; margin-top: 0px; align-text: center;">---:--:--:--</p>
+      <p class="countdown countdownRunning" id="countdownS40" style="font-family: dotmatrix, serif; font-size: 72px; color: #5bb7ff; margin-top: 0px; align-text: center;">---:--:--:--</p>
     </div>
-
-    <h2>Countdown to "The Star Beast"</h2>
-    <div style="display:flex; justify-content: center; align-items: center; margin-top: 0px;">
-      <p class="countdown countdownRunning" id="countdownSB" style="font-family: dotmatrix, serif; font-size: 72px; color: #5bb7ff; margin-top: 0px; align-text: center;">---:--:--:--</p>
-    </div>
-
-    <h2>Countdown to "Wild Blue Yonder"</h2>
-    <div style="display:flex; justify-content: center; align-items: center; margin-top: 0px;">
-      <p class="countdown countdownRunning" id="countdownWBY" style="font-family: dotmatrix, serif; font-size: 72px; color: #5bb7ff; margin-top: 0px; align-text: center;">---:--:--:--</p>
-    </div>
-
-    <h2>Countdown to "The Giggle"</h2>
-    <div style="display:flex; justify-content: center; align-items: center; margin-top: 0px;">
-      <p class="countdown countdownRunning" id="countdownTG" style="font-family: dotmatrix, serif; font-size: 72px; color: #5bb7ff; margin-top: 0px; align-text: center;">---:--:--:--</p>
-    </div>
-
+    
     <p>Music by SWD Team</p>
 
     <audio id="bg-music" autoplay>
@@ -86,20 +71,11 @@
     
     <script>
       // Unix timestamps to countdown to (November 23st, 2023 at 05:16:00 PM UTC+0) et al
-      var targetTimestamp60 = 1700759780;
-      var targetTimestampSB = 1700937000;
-      var targetTimestampWBY = 1701541800;
-      var targetTimestampTG = 1702146600;
+      var targetTimestampS40 = 715389200;
 
-      var countdownElement60 = document.getElementById("countdown60");
-      var countdownElementSB = document.getElementById("countdownSB");
-      var countdownElementWBY = document.getElementById("countdownWBY");
-      var countdownElementTG = document.getElementById("countdownTG");
+      var countdownElementS40 = document.getElementById("countdownS40");
 
-      timestamp(targetTimestamp60, countdownElement60);
-      timestamp(targetTimestampSB, countdownElementSB);
-      timestamp(targetTimestampWBY, countdownElementWBY);
-      timestamp(targetTimestampTG, countdownElementTG);
+      timestamp(targetTimestampS40, countdownElementS40);
 
       function timestamp(targetTimestamp, countdownElement) {
         // Update the countdown every second
@@ -128,10 +104,7 @@
       }
 
       function debugCountdownReached() {
-        timestamp(Math.floor(Date.now() / 1000), countdownElement60);
-        timestamp(Math.floor(Date.now() / 1000), countdownElementSB);
-        timestamp(Math.floor(Date.now() / 1000), countdownElementWBY);
-        timestamp(Math.floor(Date.now() / 1000), countdownElementTG);
+        timestamp(Math.floor(Date.now() / 1000), countdownElementS40);
       }
 
       function countdownReached(countdownInterval, countdownElement) {
